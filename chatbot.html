@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chat with Eduyogi support — get personalized career guidance, college recommendations, and exam preparation tips.">
+    <title>Eduyogi Support — Eduyogi</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="assets/logo.jpg" alt="Eduyogi Logo" class="logo-img">
+
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="news.html">Latest News</a>
+            <a href="chatbot.html" class="active">Eduyogi support</a>
+            <a href="about.html">About us</a>
+            <a href="#" id="linkLogin">Login</a>
+        </div>
+        <div class="nav-auth">
+            <button class="btn-signin" id="btnSignin">Sign In</button>
+            <div class="user-profile">
+                <div class="user-avatar" id="userAvatar" title="Account"></div>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-info">
+                        <div class="user-name" id="dropdownUserName">User</div>
+                        <div class="user-email" id="dropdownUserEmail">user@email.com</div>
+                    </div>
+                    <button class="dropdown-item">👤 My Account</button>
+                    <button class="dropdown-item admin-only" id="btnAdminDashboard" style="display: none;">🛡️ Admin
+                        Dashboard</button>
+                    <button class="dropdown-item danger" id="btnLogout">🚪 Sign Out</button>
+                </div>
+            </div>
+        </div>
+        <button class="nav-toggle">☰</button>
+    </nav>
+
+    <!-- Auth Modal -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal">
+            <button class="modal-close" id="modalClose">✕</button>
+            <h2 id="authTitle">Welcome Back</h2>
+            <p class="auth-subtitle" id="authSubtitle">Sign in to continue your journey</p>
+            <form class="auth-form" id="authForm">
+                <div class="form-group" id="authNameGroup" style="display: none;">
+                    <label for="authName">Full Name</label>
+                    <input type="text" id="authName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="authEmail">Email</label>
+                    <input type="email" id="authEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="authPassword">Password</label>
+                    <input type="password" id="authPassword" placeholder="••••••••" required minlength="6">
+                </div>
+                <p class="auth-error" id="authError"></p>
+                <button type="submit" class="btn btn-primary" id="authSubmitBtn" style="width: 100%;">Sign In</button>
+            </form>
+            <div class="auth-divider">or continue with</div>
+            <button class="btn-google" id="btnGoogle">
+                <svg width="20" height="20" viewBox="0 0 48 48">
+                    <path fill="#FFC107"
+                        d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
+                    <path fill="#FF3D00"
+                        d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
+                    <path fill="#4CAF50"
+                        d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
+                    <path fill="#1976D2"
+                        d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+                </svg>
+                Continue with Google
+            </button>
+            <p class="auth-toggle" id="authToggleText">Don't have an account? <a id="authToggleLink">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="chatbot-page">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Eduyogi <span class="gradient-text">Support</span></h2>
+                <p>Your personalized career guide for a brighter future</p>
+            </div>
+
+            <!-- Quick Prompts -->
+            <div class="quick-prompts" id="quickPrompts">
+                <button class="quick-prompt" data-prompt="I'm in 12th Science — what career options do I have?">🔬 12th
+                    Science careers</button>
+                <button class="quick-prompt" data-prompt="What are the best engineering colleges in India?">🏫 Top
+                    engineering colleges</button>
+                <button class="quick-prompt" data-prompt="How should I prepare for NEET exam?">🩺 NEET
+                    preparation</button>
+                <button class="quick-prompt"
+                    data-prompt="I'm confused between Engineering and Medicine, help me decide">🤔 Engineering vs
+                    Medicine</button>
+                <button class="quick-prompt" data-prompt="What career options are there in Commerce stream?">💼 Commerce
+                    careers</button>
+                <button class="quick-prompt" data-prompt="Tell me about CA (Chartered Accountancy) course">📊 About CA
+                    course</button>
+            </div>
+
+            <!-- Messages -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai">
+                    <div class="message-avatar">🎓</div>
+                    <div class="message-content">
+                        <p>Hello! 👋 I'm <strong>Eduyogi AI</strong>, your personal career counselor.</p>
+                        <p>I'm here to help you explore career options, find the right college, and guide you through
+                            entrance exams. Whether you're in PUC, 11th, or 12th — I've got you covered!</p>
+                        <p>Tell me — <strong>what stream are you in</strong>, and <strong>what interests you</strong>?
+                            Let's discover your dream career together! 🚀</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" id="chatInput" placeholder="Ask about careers, colleges, exams..."
+                        rows="1"></textarea>
+                    <button class="chat-send-btn" id="chatSendBtn" title="Send message">➤</button>
+                </div>
+            </div>
+            <p class="chat-disclaimer">Eduyogi support provides guidance based on available information. Always verify
+                with
+                official sources.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>🎓 Eduyogi</h3>
+                <p>Smart career guidance for Indian students in PUC, 11th & 12th standard. Helping you choose the
+                    right career, college, and future.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news.html">Latest News</a></li>
+                    <li><a href="chatbot.html">Eduyogi support</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="chatbot.html">Engineering</a></li>
+                    <li><a href="chatbot.html">Medicine</a></li>
+                    <li><a href="chatbot.html">Commerce & CA</a></li>
+                </ul>
+            </div>
+            <div class="footer-links footer-contact">
+                <h4>Contact</h4>
+                <p>📧 eduyogiiiii@gmail.com</p>
+                <p>📍 Hubli Dharwad, India</p>
+                <div class="footer-social">
+                    <a href="https://x.com/eduyogii?s=11" target="_blank" title="Twitter">𝕏</a>
+                    <a href="https://www.linkedin.com/company/eduyogii/" target="_blank" title="LinkedIn">in</a>
+                    <a href="https://www.instagram.com/eduyogii?igsh=MWRlbnR5MmV1Y21iYg%3D%3D&utm_source=qr"
+                        target="_blank" title="Instagram">📷</a>
+                    <a href="https://www.facebook.com/people/Eduyogi/61582318451835/?mibextid=wwXIfr" target="_blank"
+                        title="Facebook">f</a>
+                    <a href="https://www.youtube.com/@eduyogii" target="_blank" title="YouTube">📽️</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">
+                <p>© 2026 Eduyogi. All rights reserved.</p>
+                <p>Made with ❤️ for Indian Students</p>
+            </div>
+            <div class="footer-admin">
+                <a href="#" id="adminLoginLink" style="font-size: 0.8rem; opacity: 0.6; color: var(--text-muted);">Admin
+                    Login</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="./js/firebase-config.js"></script>
+    <script type="module" src="./js/nav.js"></script>
+    <script type="module" src="./js/chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Eduyogi — Smart career guidance for PUC, 11th & 12th students. Discover your ideal career path, top colleges, and entrance exams with personalized career guidance.">
+    <title>Eduyogi — Your Career, Our Guidance</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="assets/logo.jpg" alt="Eduyogi Logo" class="logo-img">
+
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="news.html">Latest News</a>
+            <a href="chatbot.html">Eduyogi support</a>
+            <a href="about.html">About us</a>
+            <a href="#" id="linkLogin">Login</a>
+        </div>
+        <div class="nav-auth">
+            <button class="btn-signin" id="btnSignin">Sign In</button>
+            <div class="user-profile">
+                <div class="user-avatar" id="userAvatar" title="Account"></div>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-info">
+                        <div class="user-name" id="dropdownUserName">User</div>
+                        <div class="user-email" id="dropdownUserEmail">user@email.com</div>
+                    </div>
+                    <button class="dropdown-item">👤 My Account</button>
+                    <button class="dropdown-item admin-only" id="btnAdminDashboard" style="display: none;">🛡️ Admin
+                        Dashboard</button>
+                    <button class="dropdown-item danger" id="btnLogout">🚪 Sign Out</button>
+                </div>
+            </div>
+        </div>
+        <button class="nav-toggle">☰</button>
+    </nav>
+
+    <!-- Auth Modal -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal">
+            <button class="modal-close" id="modalClose">✕</button>
+            <h2 id="authTitle">Welcome Back</h2>
+            <p class="auth-subtitle" id="authSubtitle">Sign in to continue your journey</p>
+
+            <form class="auth-form" id="authForm">
+                <div class="form-group" id="authNameGroup" style="display: none;">
+                    <label for="authName">Full Name</label>
+                    <input type="text" id="authName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="authEmail">Email</label>
+                    <input type="email" id="authEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="authPassword">Password</label>
+                    <input type="password" id="authPassword" placeholder="••••••••" required minlength="6">
+                </div>
+                <p class="auth-error" id="authError"></p>
+                <button type="submit" class="btn btn-primary" id="authSubmitBtn" style="width: 100%;">Sign In</button>
+            </form>
+
+            <div class="auth-divider">or continue with</div>
+
+            <button class="btn-google" id="btnGoogle">
+                <svg width="20" height="20" viewBox="0 0 48 48">
+                    <path fill="#FFC107"
+                        d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
+                    <path fill="#FF3D00"
+                        d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
+                    <path fill="#4CAF50"
+                        d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
+                    <path fill="#1976D2"
+                        d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+                </svg>
+                Continue with Google
+            </button>
+
+            <p class="auth-toggle" id="authToggleText">Don't have an account? <a id="authToggleLink">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="globe-container">
+            <div class="globe-sphere"></div>
+        </div>
+        <div class="hero-content">
+            <h1>We Simplify Your<br>Exam Journey.</h1>
+            <p>EduYogi helps students register for exams, connect with the best consultants, and get guidance from
+                verified colleges all in one place.</p>
+            <div class="hero-actions">
+                <a href="chatbot.html" class="btn btn-hero btn-chat">Start Chat</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section class="section" id="homeNews">
+        <div class="section-header fade-in">
+            <h2>Latest <span class="gradient-text">Updates</span></h2>
+            <p>Stay informed with the top news from our key categories</p>
+        </div>
+        <div class="home-news-grid fade-in" id="homeNewsContainer">
+            <!-- News items will be injected here by JS -->
+            <div class="loading-state">Loading latest news...</div>
+        </div>
+        <div class="view-all-container">
+            <a href="news.html" class="btn-text">View All News →</a>
+        </div>
+    </section>
+
+    <!-- Mentors & Guides Marquee -->
+    <section class="section" id="mentors" style="overflow: hidden;">
+        <div class="section-header fade-in">
+            <h2>Our <span class="gradient-text">Mentors & Guides</span></h2>
+            <p>Great visionaries whose ideas and work inspired us to build Eduyogi</p>
+        </div>
+        <div class="mentors-marquee-container fade-in">
+            <div class="mentors-marquee-track">
+                <!-- Original set -->
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">🕊️</div>
+                        <div class="mentor-info">
+                            <h3>Dr. APJ Abdul Kalam</h3>
+                            <p class="mentor-role">Missile Man of India</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">"Dream is not that which you see while sleeping, it is something that does
+                        not let you sleep."</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">📚</div>
+                        <div class="mentor-info">
+                            <h3>Swami Vivekananda</h3>
+                            <p class="mentor-role">Educator</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">"Education is the manifestation of the perfection already in man."</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">💡</div>
+                        <div class="mentor-info">
+                            <h3>Sir M. Visvesvaraya</h3>
+                            <p class="mentor-role">Visionary</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">A pioneer who proved that engineering and innovation can transform nations.
+                    </p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">⚖️</div>
+                        <div class="mentor-info">
+                            <h3>Dr. B.R. Ambedkar</h3>
+                            <p class="mentor-role">Architect</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">"Cultivation of mind should be the ultimate aim of human existence."</p>
+                </div>
+                <!-- Duplicate for seamless scroll -->
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">🕊️</div>
+                        <div class="mentor-info">
+                            <h3>Dr. APJ Abdul Kalam</h3>
+                            <p class="mentor-role">Missile Man of India</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">"Dream is not that which you see while sleeping, it is something that does
+                        not let you sleep."</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">📚</div>
+                        <div class="mentor-info">
+                            <h3>Swami Vivekananda</h3>
+                            <p class="mentor-role">Educator</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">"Education is the manifestation of the perfection already in man."</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">💡</div>
+                        <div class="mentor-info">
+                            <h3>Sir M. Visvesvaraya</h3>
+                            <p class="mentor-role">Visionary</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">A pioneer who proved that engineering and innovation can transform nations.
+                    </p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">⚖️</div>
+                        <div class="mentor-info">
+                            <h3>Dr. B.R. Ambedkar</h3>
+                            <p class="mentor-role">Architect</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">"Cultivation of mind should be the ultimate aim of human existence."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="section-header fade-in">
+            <h2>What <span class="gradient-text">Eduyogi</span> Offers</h2>
+            <p>Everything you need to make the right career choice, all in one place</p>
+        </div>
+        <div class="features-grid fade-in">
+            <div class="glass-card feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Eduyogi support</h3>
+                <p>Chat with our intelligent support that understands your interests, strengths, and goals to
+                    suggest the
+                    perfect career path tailored just for you.</p>
+            </div>
+            <div class="glass-card feature-card">
+                <div class="feature-icon">🏫</div>
+                <h3>College Finder</h3>
+                <p>Get personalized college recommendations across Engineering, Medicine, Commerce, Arts, Law, and
+                    more
+                    — with rankings and admission details.</p>
+            </div>
+            <div class="glass-card feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Exam Guide</h3>
+                <p>Comprehensive information about entrance exams like JEE, NEET, CLAT, NDA, CAT — with eligibility
+                    criteria and preparation strategies.</p>
+            </div>
+            <div class="glass-card feature-card">
+                <div class="feature-icon">📰</div>
+                <h3>Latest News</h3>
+                <p>Stay updated with the latest education news, exam dates, policy changes, scholarship
+                    opportunities,
+                    and career trends.</p>
+            </div>
+            <div class="glass-card feature-card">
+                <div class="feature-icon">🗺️</div>
+                <h3>Career Roadmaps</h3>
+                <p>Step-by-step roadmaps for every career — from school to job. Know exactly what to study, which
+                    exams
+                    to take, and what skills to build.</p>
+            </div>
+            <div class="glass-card feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Scholarship Info</h3>
+                <p>Discover scholarships you're eligible for based on your stream, category, and academic
+                    performance.
+                    Never miss funding opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section fade-in">
+        <div class="cta-card">
+            <h2>Ready to Discover Your <span class="gradient-text">Dream Career?</span></h2>
+            <p>Start a conversation with our Eduyogi support and take the first step towards your future.</p>
+            <a href="chatbot.html" class="btn btn-primary">🚀 Start Consultation</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>🎓 Eduyogi</h3>
+                <p>Smart career guidance for Indian students in PUC, 11th & 12th standard. Helping you choose the
+                    right career, college, and future.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news.html">Latest News</a></li>
+                    <li><a href="chatbot.html">Eduyogi support</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="chatbot.html">Engineering</a></li>
+                    <li><a href="chatbot.html">Medicine</a></li>
+                    <li><a href="chatbot.html">Commerce & CA</a></li>
+                </ul>
+            </div>
+            <div class="footer-links footer-contact">
+                <h4>Contact</h4>
+                <p>📧 eduyogiiiii@gmail.com</p>
+                <p>📍 Hubli Dharwad, India</p>
+                <div class="footer-social">
+                    <a href="https://x.com/eduyogii?s=11" target="_blank" title="Twitter">𝕏</a>
+                    <a href="https://www.linkedin.com/company/eduyogii/" target="_blank" title="LinkedIn">in</a>
+                    <a href="https://www.instagram.com/eduyogii?igsh=MWRlbnR5MmV1Y21iYg%3D%3D&utm_source=qr"
+                        target="_blank" title="Instagram">📷</a>
+                    <a href="https://www.facebook.com/people/Eduyogi/61582318451835/?mibextid=wwXIfr" target="_blank"
+                        title="Facebook">f</a>
+                    <a href="https://www.youtube.com/@eduyogii" target="_blank" title="YouTube">📽️</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">
+                <p>© 2026 Eduyogi. All rights reserved.</p>
+                <p>Made with ❤️ for Indian Students</p>
+            </div>
+            <div class="footer-admin">
+                <a href="#" id="adminLoginLink" style="font-size: 0.8rem; opacity: 0.6; color: var(--text-muted);">Admin
+                    Login</a>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="./js/firebase-config.js"></script>
+    <script type="module" src="./js/nav.js"></script>
+    <script type="module" src="./js/home-news.js"></script>
+</body>
+
+</html>

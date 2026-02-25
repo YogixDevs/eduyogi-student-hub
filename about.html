@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — Eduyogi</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="assets/logo.jpg" alt="Eduyogi Logo" class="logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="news.html">Latest News</a>
+            <a href="chatbot.html">Eduyogi Support</a>
+            <a href="about.html" class="active">About us</a>
+            <a href="#" id="linkLogin">Login</a>
+        </div>
+        <div class="nav-auth">
+            <button class="btn-signin" id="btnSignin">Sign In</button>
+            <div class="user-profile">
+                <div class="user-avatar" id="userAvatar" title="Account"></div>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-info">
+                        <div class="user-name" id="dropdownUserName">User</div>
+                        <div class="user-email" id="dropdownUserEmail">user@email.com</div>
+                    </div>
+                    <button class="dropdown-item">👤 My Account</button>
+                    <button class="dropdown-item admin-only" id="btnAdminDashboard" style="display: none;">🛡️ Admin
+                        Dashboard</button>
+                    <button class="dropdown-item danger" id="btnLogout">🚪 Sign Out</button>
+                </div>
+            </div>
+        </div>
+        <button class="nav-toggle">☰</button>
+    </nav>
+
+    <section class="section" style="margin-top: 100px;">
+        <div class="section-header fade-in">
+            <h2>About <span class="gradient-text">Eduyogi</span></h2>
+            <p>Empowering students to make informed career decisions with AI-driven guidance</p>
+        </div>
+        <div class="about-grid fade-in">
+            <div class="about-text">
+                <h3>🎯 Our Mission</h3>
+                <p>At Eduyogi, we believe every student deserves personalized career guidance, not just those who can
+                    afford expensive counselors. Our AI-powered platform provides world-class career counseling to PUC,
+                    11th, and 12th students across India.</p>
+                <p>Whether you dream of becoming an Engineer, Doctor, CA, Lawyer, Designer, or anything else — Eduyogi
+                    helps you navigate the journey from choosing the right stream to finding the best college for your
+                    goals.</p>
+                <p>We combine cutting-edge AI technology with insights from education experts to deliver guidance that's
+                    accurate, unbiased, and truly helpful.</p>
+            </div>
+            <div class="about-visual">
+                <div class="glass-card about-card">
+                    <div class="card-icon">🤖</div>
+                    <h4>Personalized</h4>
+                    <p>Smart Gemini understands your unique situation</p>
+                </div>
+                <div class="glass-card about-card">
+                    <div class="card-icon">🎓</div>
+                    <h4>Expert-Backed</h4>
+                    <p>Built with insights from education professionals</p>
+                </div>
+                <div class="glass-card about-card">
+                    <div class="card-icon">🇮🇳</div>
+                    <h4>India-Focused</h4>
+                    <p>Tailored for Indian education system</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Footer content (simplified for brevity, can be refined) -->
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>🎓 Eduyogi</h3>
+                <p>Smart career guidance for Indian students in PUC, 11th & 12th standard. Helping you choose the
+                    right career, college, and future.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news.html">Latest News</a></li>
+                    <li><a href="chatbot.html">Eduyogi support</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="chatbot.html">Engineering</a></li>
+                    <li><a href="chatbot.html">Medicine</a></li>
+                    <li><a href="chatbot.html">Commerce & CA</a></li>
+                </ul>
+            </div>
+            <div class="footer-links footer-contact">
+                <h4>Contact</h4>
+                <p>📧 eduyogiiiii@gmail.com</p>
+                <p>📍 Hubli Dharwad, India</p>
+                <div class="footer-social">
+                    <a href="https://x.com/eduyogii?s=11" target="_blank" title="Twitter">𝕏</a>
+                    <a href="https://www.linkedin.com/company/eduyogii/" target="_blank" title="LinkedIn">in</a>
+                    <a href="https://www.instagram.com/eduyogii?igsh=MWRlbnR5MmV1Y21iYg%3D%3D&utm_source=qr"
+                        target="_blank" title="Instagram">📷</a>
+                    <a href="https://www.facebook.com/people/Eduyogi/61582318451835/?mibextid=wwXIfr" target="_blank"
+                        title="Facebook">f</a>
+                    <a href="https://www.youtube.com/@eduyogii" target="_blank" title="YouTube">📽️</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Eduyogi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="./js/firebase-config.js"></script>
+    <script type="module" src="./js/nav.js"></script>
+</body>
+
+</html>

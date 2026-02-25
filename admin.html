@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Eduyogi</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/news.css">
+    <style>
+        .admin-dashboard {
+            padding: var(--space-2xl) var(--space-md);
+            max-width: 1000px;
+            margin: 80px auto;
+        }
+
+        .admin-card {
+            background: white;
+            padding: var(--space-2xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .admin-header {
+            margin-bottom: var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-form textarea {
+            min-height: 200px;
+            width: 100%;
+            padding: var(--space-md);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            margin-bottom: var(--space-md);
+            font-family: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="assets/logo.jpg" alt="Eduyogi Logo" class="logo-img">
+            Eduyogi
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="news.html">Latest News</a>
+            <a href="chatbot.html">AI Counselor</a>
+            <a href="about.html">About us</a>
+            <a href="admin.html" class="active">Admin</a>
+        </div>
+        <div class="nav-auth">
+            <button class="btn btn-outline" id="btnLogoutHome">Logout</button>
+        </div>
+    </nav>
+
+    <div class="admin-dashboard">
+        <div class="admin-card">
+            <div class="admin-header">
+                <h2>Admin <span class="gradient-text">News Management</span></h2>
+                <div id="adminBadge" class="badge">eduyogiiiii@gmail.com</div>
+            </div>
+
+            <form id="adminNewsForm" class="admin-form">
+                <div class="form-group">
+                    <label for="newsTitle">News Title</label>
+                    <input type="text" id="newsTitle" placeholder="Headline..." required>
+                </div>
+                <div class="form-group">
+                    <label for="newsContent">Content</label>
+                    <textarea id="newsContent" placeholder="Article body..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="newsCategory">Category</label>
+                    <select id="newsCategory" required>
+                        <option value="engineering">Engineering News</option>
+                        <option value="doctor">Doctor related news</option>
+                        <option value="other">Other news</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newsImage">Image URL</label>
+                    <input type="url" id="newsImage" placeholder="https://...">
+                </div>
+                <button type="submit" class="btn btn-primary" id="publishBtn">Publish News Article</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from './js/firebase-config.js';
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Access Control
+        onAuthStateChanged(auth, (user) => {
+            if (!user || user.email !== 'eduyogiiiii@gmail.com') {
+                window.location.href = 'index.html';
+            }
+        });
+
+        const newsForm = document.getElementById('adminNewsForm');
+        const publishBtn = document.getElementById('publishBtn');
+
+        newsForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('newsTitle').value;
+            const content = document.getElementById('newsContent').value;
+            const category = document.getElementById('newsCategory').value;
+            const imageUrl = document.getElementById('newsImage').value;
+
+            try {
+                publishBtn.disabled = true;
+                publishBtn.innerText = 'Publishing...';
+
+                await addDoc(collection(db, "news"), {
+                    title,
+                    content,
+                    category,
+                    imageUrl: imageUrl || null,
+                    createdAt: serverTimestamp(),
+                    authorId: auth.currentUser.uid
+                });
+
+                alert('News published successfully! 🚀');
+                newsForm.reset();
+            } catch (err) {
+                console.error(err);
+                alert('Error publishing news: ' + err.message);
+            } finally {
+                publishBtn.disabled = false;
+                publishBtn.innerText = 'Publish News Article';
+            }
+        });
+
+        document.getElementById('btnLogoutHome').onclick = () => signOut(auth);
+    </script>
+</body>
+
+</html>
