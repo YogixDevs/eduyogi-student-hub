@@ -6,8 +6,20 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const app = express();
 
 // Security Middleware
+// Security Middleware (Configured to allow necessary scripts and eval)
 app.use(helmet({
-    contentSecurityPolicy: false, // Disable CSP for easier integration if needed
+    contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+            "default-src": ["'self'"],
+            "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.gstatic.com", "https://cdn.jsdelivr.net", "https://*.googleapis.com"],
+            "connect-src": ["'self'", "https://*.googleapis.com", "https://*.firebaseio.com", "https://*.firebase.com"],
+            "img-src": ["'self'", "data:", "https://*.googleusercontent.com"],
+            "frame-src": ["'self'", "https://*.firebaseapp.com"],
+            "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
+            "font-src": ["'self'", "https://fonts.gstatic.com"],
+        },
+    },
 }));
 
 app.use(cors({

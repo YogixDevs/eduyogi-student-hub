@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userDropdown = document.getElementById('userDropdown');
     const btnLogout = document.getElementById('btnLogout');
     const adminLoginLink = document.getElementById('adminLoginLink');
+    const authSignupFields = document.getElementById('authSignupFields');
 
     let isSignUp = false;
 
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         authSubtitle.textContent = isSignUp ? 'Join Eduyogi and start your career journey' : 'Sign in to continue your journey';
         authSubmitBtn.textContent = isSignUp ? 'Sign Up' : 'Sign In';
         authNameGroup.style.display = isSignUp ? 'block' : 'none';
+        if (authSignupFields) authSignupFields.style.display = isSignUp ? 'block' : 'none';
         authToggleText.innerHTML = isSignUp
             ? 'Already have an account? <a id="authToggleLink">Sign In</a>'
             : 'Don\'t have an account? <a id="authToggleLink">Sign Up</a>';
@@ -108,8 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileAuth.classList.remove('nav-auth');
             mobileAuth.classList.add('nav-auth-mobile');
 
-            // Unique IDs for mobile clones to avoid conflicts if needed, 
-            // but we'll use class-based delegation for clicks
+            // Ensure buttons have the right classes for mobile styling
+            const mobileLogin = mobileAuth.querySelector('#linkLogin');
+            const mobileSignin = mobileAuth.querySelector('#btnSignin');
+            if (mobileLogin) mobileLogin.className = 'btn-login';
+            if (mobileSignin) mobileSignin.className = 'btn-signin';
+
             navLinks.appendChild(mobileAuth);
         }
     };
@@ -134,6 +140,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (name) {
                     await updateProfile(userCredential.user, { displayName: name });
                 }
+
+                // Collect additional fields for new users
+                const studying = document.getElementById('authStudying')?.value?.trim();
+                const subjects = document.getElementById('authSubjects')?.value?.trim();
+                const district = document.getElementById('authDistrict')?.value?.trim();
+                const city = document.getElementById('authCity')?.value?.trim();
+                const pincode = document.getElementById('authPincode')?.value?.trim();
+
+                const userDocRef = doc(db, "users", userCredential.user.uid);
+                const isAdmin = email === 'eduyogiiiii@gmail.com';
+
+                const userData = {
+                    name: name || 'Eduyogi Student',
+                    email: email,
+                    role: isAdmin ? 'admin' : 'user',
+                    studying: studying || '',
+                    subjects: subjects || '',
+                    district: district || '',
+                    city: city || '',
+                    pincode: pincode || '',
+                    createdAt: new Date().toISOString()
+                };
+                await setDoc(userDocRef, userData);
+                console.log(`🆕 New ${userData.role.toUpperCase()} Profile Created with expanded metadata`);
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
             }
@@ -230,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let userData;
                 if (!userSnap.exists()) {
+                    // Profile creation for Google Sign-in or cases where setDoc failed in submit
                     const isAdmin = user.email === 'eduyogiiiii@gmail.com';
                     userData = {
                         name: user.displayName || 'Eduyogi Student',

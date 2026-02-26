@@ -303,6 +303,10 @@ ul {
   box-shadow: var(--shadow-glow);
 }
 
+.nav-auth-mobile {
+  display: none;
+}
+
 /* User profile dropdown */
 .user-profile {
   position: relative;
@@ -437,7 +441,7 @@ ul {
   box-shadow: var(--shadow-lg);
   padding: var(--space-2xl);
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
   position: relative;
   animation: modal-in 0.3s ease;
 }
@@ -487,6 +491,23 @@ ul {
 
 .auth-form .form-group {
   margin-bottom: var(--space-md);
+}
+
+.auth-form .form-row {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.auth-form .form-group-half {
+  flex: 1;
+}
+
+@media (max-width: 480px) {
+  .auth-form .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 .auth-form label {
@@ -944,33 +965,94 @@ ul {
     flex-direction: column;
     gap: var(--space-md);
     width: 100%;
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-xl) var(--space-md) 100px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     background: #fbfbfb;
-    /* Subtle background for auth section */
     margin-top: auto;
   }
 
-  .nav-links .nav-auth-mobile .btn {
+  .nav-links .nav-auth-mobile .btn-login,
+  .nav-links .nav-auth-mobile .btn-signin {
     width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    padding: var(--space-md);
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
+    margin-bottom: var(--space-md);
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  .nav-links .nav-auth-mobile .btn-login,
+  .nav-links .nav-auth-mobile .btn-signin {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem !important;
+    margin-bottom: var(--space-md);
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: var(--radius-md);
+    /* Modern rectangular look */
+    transition: var(--transition-base);
+    font-weight: 600;
+  }
+
+  .nav-links .nav-auth-mobile .btn-login {
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-links .nav-auth-mobile .btn-signin {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px var(--primary-glow);
+    font-weight: 700;
+  }
+
+  .nav-links .nav-auth-mobile .btn-login:active,
+  .nav-links .nav-auth-mobile .btn-signin:active {
+    transform: scale(0.98);
   }
 
   .nav-links .nav-auth-mobile .user-profile {
-    display: flex !important;
+    display: none;
+    /* Let JS handle visibility with .show */
     position: relative;
     width: 100%;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .nav-links .nav-auth-mobile .user-profile.show {
+    display: flex;
   }
 
   .nav-links .nav-auth-mobile .user-avatar {
     width: 60px;
     height: 60px;
+    border-radius: var(--radius-full);
+    background: var(--primary-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.5rem;
+    overflow: hidden;
+  }
+
+  .nav-links .nav-auth-mobile .user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .nav-links .nav-auth-mobile .user-dropdown {
