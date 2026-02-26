@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <!-- Three.js r180 Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -26,9 +34,9 @@
             <a href="news.html">Latest News</a>
             <a href="chatbot.html">Eduyogi support</a>
             <a href="about.html">About us</a>
-            <a href="#" id="linkLogin">Login</a>
         </div>
         <div class="nav-auth">
+            <a href="#" class="btn-login" id="linkLogin">Login</a>
             <button class="btn-signin" id="btnSignin">Sign In</button>
             <div class="user-profile">
                 <div class="user-avatar" id="userAvatar" title="Account"></div>
@@ -93,8 +101,8 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="globe-container">
-            <div class="globe-sphere"></div>
+        <div class="globe-container" id="globeContainer">
+            <!-- Three.js canvas will be inserted here -->
         </div>
         <div class="hero-content">
             <h1>We Simplify Your<br>Exam Journey.</h1>
@@ -132,88 +140,212 @@
                 <!-- Original set -->
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">🕊️</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. Rakesh P Tapaskar.png" alt="Dr. Rakesh P Tapaskar">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Dr. APJ Abdul Kalam</h3>
-                            <p class="mentor-role">Missile Man of India</p>
+                            <h3>Dr. Rakesh P Tapaskar</h3>
+                            <p class="mentor-role">Director | Automation & Robotics</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">"Dream is not that which you see while sleeping, it is something that does
-                        not let you sleep."</p>
+                    <p class="mentor-quote">Expert in Industrial Automation, Robotics Solutions, and Applied AI/ML for
+                        Engineering Systems. Technical consultancy leader.</p>
                 </div>
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">📚</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. Vinayak N Kulkarni.png" alt="Dr. Vinayak N Kulkarni">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Swami Vivekananda</h3>
-                            <p class="mentor-role">Educator</p>
+                            <h3>Dr. Vinayak N Kulkarni</h3>
+                            <p class="mentor-role">Head, Automation & Robotics</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">"Education is the manifestation of the perfection already in man."</p>
+                    <p class="mentor-quote">Providing leadership at KLE Technological University, Hubballi. Dedicated to
+                        shaping the next generation of engineers.</p>
                 </div>
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">💡</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. M S Yatnatti.jpg" alt="Dr. M S Yatnatti">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Sir M. Visvesvaraya</h3>
-                            <p class="mentor-role">Visionary</p>
+                            <h3>Dr. M S Yatnatti</h3>
+                            <p class="mentor-role">MSc PhD in Physics</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">A pioneer who proved that engineering and innovation can transform nations.
-                    </p>
+                    <p class="mentor-quote">Academician at Nehru Arts Science and Commerce Degree college and PG centre,
+                        Hubballi. Passionate about empowering students through Physics.</p>
                 </div>
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">⚖️</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Prof. Mohmmad Safi Paniband.jpeg" alt="Prof. Mohmmad Safi Paniband">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Dr. B.R. Ambedkar</h3>
-                            <p class="mentor-role">Architect</p>
+                            <h3>Prof. Mohmmad Safi Paniband</h3>
+                            <p class="mentor-role">MSc PhD in Chemistry</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">"Cultivation of mind should be the ultimate aim of human existence."</p>
+                    <p class="mentor-quote">Distinguished Professor with a deep focus on Chemistry and academic
+                        excellence. researcher committed to student success.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. LEENA SHETTAR.jpg" alt="Dr. Leena Shettar">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. Leena Shettar</h3>
+                            <p class="mentor-role">Professor | Periodontics</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">Professor at SDM Dental College, Sattur Dharwad. With 27 years of
+                        experience, she is a distinguished leader in Periodontics and dental education.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr.  G C PATIL.jpg" alt="Dr. G C Patil">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. G C Patil</h3>
+                            <p class="mentor-role">Professor | Radio-Diagnosis</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">Professor at KMCRI with 29 years of expertise in Radio-Diagnosis. A
+                        dedicated medical professional committed to diagnostics and research.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr Sanjay Neeralagi.png" alt="Dr. Sanjay Neeralagi">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. Sanjay Neeralagi</h3>
+                            <p class="mentor-role">Consultant Physician & Professor</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">MBBS MD (General Medicine) with 30 years as a Consultant Physician and 25
+                        years as a Professor at KMCRI. A veteran in general medicine and medical education.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Savita.png" alt="Dr. Savita Neeralagi">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. Savita Neeralagi</h3>
+                            <p class="mentor-role">Consultant Paediatrician</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">MBBS, DCh. A dedicated Consultant Paediatrician with over 25 years of
+                        experience serving the community in Hubli.</p>
                 </div>
                 <!-- Duplicate for seamless scroll -->
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">🕊️</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. Rakesh P Tapaskar.png" alt="Dr. Rakesh P Tapaskar">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Dr. APJ Abdul Kalam</h3>
-                            <p class="mentor-role">Missile Man of India</p>
+                            <h3>Dr. Rakesh P Tapaskar</h3>
+                            <p class="mentor-role">Director | Automation & Robotics</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">"Dream is not that which you see while sleeping, it is something that does
-                        not let you sleep."</p>
+                    <p class="mentor-quote">Expert in Industrial Automation, Robotics Solutions, and Applied AI/ML for
+                        Engineering Systems. Technical consultancy leader.</p>
                 </div>
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">📚</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. Vinayak N Kulkarni.png" alt="Dr. Vinayak N Kulkarni">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Swami Vivekananda</h3>
-                            <p class="mentor-role">Educator</p>
+                            <h3>Dr. Vinayak N Kulkarni</h3>
+                            <p class="mentor-role">Head, Automation & Robotics</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">"Education is the manifestation of the perfection already in man."</p>
+                    <p class="mentor-quote">Providing leadership at KLE Technological University, Hubballi. Dedicated to
+                        shaping the next generation of engineers.</p>
                 </div>
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">💡</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. M S Yatnatti.jpg" alt="Dr. M S Yatnatti">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Sir M. Visvesvaraya</h3>
-                            <p class="mentor-role">Visionary</p>
+                            <h3>Dr. M S Yatnatti</h3>
+                            <p class="mentor-role">MSc PhD in Physics</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">A pioneer who proved that engineering and innovation can transform nations.
-                    </p>
+                    <p class="mentor-quote">Academician at Nehru Arts Science and Commerce Degree college and PG centre,
+                        Hubballi. Passionate about empowering students through Physics.</p>
                 </div>
                 <div class="mentor-card-marquee">
                     <div class="mentor-header">
-                        <div class="mentor-avatar-small">⚖️</div>
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Prof. Mohmmad Safi Paniband.jpeg" alt="Prof. Mohmmad Safi Paniband">
+                        </div>
                         <div class="mentor-info">
-                            <h3>Dr. B.R. Ambedkar</h3>
-                            <p class="mentor-role">Architect</p>
+                            <h3>Prof. Mohmmad Safi Paniband</h3>
+                            <p class="mentor-role">MSc PhD in Chemistry</p>
                         </div>
                     </div>
-                    <p class="mentor-quote">"Cultivation of mind should be the ultimate aim of human existence."</p>
+                    <p class="mentor-quote">Distinguished Professor with a deep focus on Chemistry and academic
+                        excellence. researcher committed to student success.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr. LEENA SHETTAR.jpg" alt="Dr. Leena Shettar">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. Leena Shettar</h3>
+                            <p class="mentor-role">Professor | Periodontics</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">Professor at SDM Dental College, Sattur Dharwad. With 27 years of
+                        experience, she is a distinguished leader in Periodontics and dental education.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr.  G C PATIL.jpg" alt="Dr. G C Patil">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. G C Patil</h3>
+                            <p class="mentor-role">Professor | Radio-Diagnosis</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">Professor at KMCRI with 29 years of expertise in Radio-Diagnosis. A
+                        dedicated medical professional committed to diagnostics and research.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Dr Sanjay Neeralagi.png" alt="Dr. Sanjay Neeralagi">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. Sanjay Neeralagi</h3>
+                            <p class="mentor-role">Consultant Physician & Professor</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">MBBS MD (General Medicine) with 30 years as a Consultant Physician and 25
+                        years as a Professor at KMCRI. A veteran in general medicine and medical education.</p>
+                </div>
+                <div class="mentor-card-marquee">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar-small">
+                            <img src="assets/Savita.png" alt="Dr. Savita Neeralagi">
+                        </div>
+                        <div class="mentor-info">
+                            <h3>Dr. Savita Neeralagi</h3>
+                            <p class="mentor-role">Consultant Paediatrician</p>
+                        </div>
+                    </div>
+                    <p class="mentor-quote">MBBS, DCh. A dedicated Consultant Paediatrician with over 25 years of
+                        experience serving the community in Hubli.</p>
                 </div>
             </div>
         </div>
@@ -306,6 +438,7 @@
             <div class="footer-links footer-contact">
                 <h4>Contact</h4>
                 <p>📧 eduyogiiiii@gmail.com</p>
+                <p>📞 +91 98441 03463</p>
                 <p>📍 Hubli Dharwad, India</p>
                 <div class="footer-social">
                     <a href="https://x.com/eduyogii?s=11" target="_blank" title="Twitter">𝕏</a>
@@ -332,6 +465,7 @@
     <script type="module" src="./js/firebase-config.js"></script>
     <script type="module" src="./js/nav.js"></script>
     <script type="module" src="./js/home-news.js"></script>
+    <script type="module" src="./js/globe.js"></script>
 </body>
 
 </html>

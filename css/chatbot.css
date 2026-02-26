@@ -11,10 +11,9 @@
 
 .chat-container {
     flex: 1;
-    max-width: 900px;
-    width: 100%;
+    width: min(100%, 900px);
     margin: 0 auto;
-    padding: var(--space-xl);
+    padding: clamp(var(--space-md), 3vw, var(--space-xl));
     display: flex;
     flex-direction: column;
 }
@@ -49,8 +48,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    min-height: 400px;
-    max-height: calc(100vh - 320px);
+    min-height: 350px;
+    max-height: calc(100vh - clamp(250px, 40vh, 320px));
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -70,7 +69,7 @@
 .message {
     display: flex;
     gap: var(--space-sm);
-    max-width: 80%;
+    max-width: min(90%, 750px);
     animation: message-in 0.3s ease;
 }
 
@@ -308,6 +307,7 @@
     justify-content: center;
     transition: var(--transition-base);
     flex-shrink: 0;
+    align-self: center;
 }
 
 .chat-send-btn:hover:not(:disabled) {
@@ -334,18 +334,46 @@
     }
 
     .chat-header h1 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 
     .message {
-        max-width: 90%;
+        max-width: 95%;
+    }
+
+    .message-content {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.9rem;
     }
 
     .quick-prompts {
-        justify-content: flex-start;
+        justify-content: center;
+        gap: var(--space-xs);
     }
 
+    .chat-input-area {
+        padding: var(--space-sm) 0;
+    }
+
+    .chat-input {
+        padding: var(--space-sm);
+        font-size: 0.9rem;
+    }
+
+    .chat-input-wrapper {
+        padding: 4px;
+        gap: 4px;
+    }
+}
+
+@media (max-width: 480px) {
     .chat-messages {
-        max-height: calc(100vh - 300px);
+        max-height: calc(100vh - 280px);
+    }
+
+    .message-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
     }
 }
