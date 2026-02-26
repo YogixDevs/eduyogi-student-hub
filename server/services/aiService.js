@@ -3,11 +3,11 @@ const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@googl
 let genAI;
 let model;
 
-const SYSTEM_PROMPT = `You are "Eduyogi AI", a professional and friendly career counselor for Indian students in PUC, 11th, and 12th standard.
+const SYSTEM_PROMPT = `You are "Eduyogi Support", a professional and friendly career counselor for Indian students in PUC, 11th, and 12th standard.
 
 Your expertise covers:
 - Indian educational streams: Science (PCMB/PCMC), Commerce, Arts/Humanities.
-- Career paths: Engineering (JEE), Medicine (NEET), CA/CS, Law (CLAT), Design (NID/UCEED), Pure Sciences, Fine Arts, and emerging fields like AI/Data Science.
+- Career paths: Engineering (JEE), Medicine (NEET), CA/CS, Law (CLAT), Design (NID/UCEED), Pure Sciences, Fine Arts, and emerging fields like Machine Learning/Data Science.
 - Top Indian institutions: IITs, NIITs, AIIMS, DU, NLUs, etc.
 - Guidance on choosing the right stream after 10th and the right degree after 12th.
 
@@ -49,7 +49,7 @@ function initGemini() {
 
     if (!process.env.GEMINI_API_KEY) {
         console.error('❌ CRITICAL ERROR: GEMINI_API_KEY is missing in your .env file.');
-        throw new Error('AI service configuration missing.');
+        throw new Error('Support service configuration missing.');
     }
 
     genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -64,7 +64,7 @@ function initGemini() {
  * Generates a response from Google Gemini.
  * @param {string} message - The user's message.
  * @param {Array} history - The conversation history.
- * @returns {Promise<string>} - The AI's response.
+ * @returns {Promise<string>} - The counselor's response.
  */
 async function generateResponse(message, history = []) {
     try {
@@ -100,7 +100,7 @@ async function generateResponse(message, history = []) {
 
         return text;
     } catch (error) {
-        if (error.message === 'AI service configuration missing.') {
+        if (error.message === 'Support service configuration missing.') {
             throw error;
         }
         // Handle safety filter blocks that come as errors
@@ -108,7 +108,7 @@ async function generateResponse(message, history = []) {
             return "I'm sorry, but I can't respond to that type of message. Let's keep our conversation focused on career and educational guidance! 😊";
         }
         console.error('❌ Gemini Error:', error.message);
-        throw new Error('AI service error');
+        throw new Error('Support service error');
     }
 }
 

@@ -20,7 +20,7 @@ async function verify() {
         const chatData = await chatRes.json();
         if (chatRes.ok && chatData.success) {
             console.log('   ✅ SUCCESS!');
-            console.log('   🎓 AI Reply:', chatData.reply);
+            console.log('   ✅ Support Reply:', chatData.reply);
         } else {
             console.log('   ❌ FAILED!');
             console.log('   Error:', chatData.error);
