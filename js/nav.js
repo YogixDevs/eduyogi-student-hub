@@ -162,13 +162,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. Logout
-    btnLogout?.addEventListener('click', async () => {
-        try {
-            await signOut(auth);
-            userDropdown?.classList.remove('open');
-        } catch (error) {
-            console.error("Logout Error:", error);
+    // 3. Logout (Unified Event Delegation)
+    document.addEventListener('click', async (e) => {
+        if (e.target.closest('#btnLogout') || e.target.closest('.btn-logout')) {
+            try {
+                await signOut(auth);
+                userDropdown?.classList.remove('open');
+                // Ensure mobile menu closes on logout
+                if (navLinks?.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    if (navToggle) navToggle.textContent = '☰';
+                }
+            } catch (error) {
+                console.error("Logout Error:", error);
+            }
+        }
+    });
+
+    // Close mobile menu when a link is clicked
+    navLinks?.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+            navLinks.classList.remove('open');
+            if (navToggle) navToggle.textContent = '☰';
         }
     });
 
