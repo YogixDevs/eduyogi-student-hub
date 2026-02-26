@@ -88,14 +88,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const linkLogin = document.getElementById('linkLogin');
 
-    btnSignin?.addEventListener('click', openModal);
-    linkLogin?.addEventListener('click', (e) => {
-        e.preventDefault();
-        openModal();
+    // Use event delegation for buttons that might exist in both desktop and mobile menus
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('#btnSignin') || e.target.closest('#linkLogin') || e.target.closest('.btn-login') || e.target.closest('.btn-signin')) {
+            if (e.target.tagName === 'A' || e.target.closest('a')) e.preventDefault();
+            openModal();
+        }
     });
+
     modalClose?.addEventListener('click', closeModal);
     authToggleLink?.addEventListener('click', toggleMode);
     authOverlay?.addEventListener('click', (e) => { if (e.target === authOverlay) closeModal(); });
+
+    // === Mobile Auth Integration ===
+    const setupMobileNav = () => {
+        const navAuth = document.querySelector('.nav-auth');
+        if (navAuth && navLinks && !navLinks.querySelector('.nav-auth-mobile')) {
+            const mobileAuth = navAuth.cloneNode(true);
+            mobileAuth.classList.remove('nav-auth');
+            mobileAuth.classList.add('nav-auth-mobile');
+
+            // Unique IDs for mobile clones to avoid conflicts if needed, 
+            // but we'll use class-based delegation for clicks
+            navLinks.appendChild(mobileAuth);
+        }
+    };
+    setupMobileNav();
 
     // === Firebase Auth Logic ===
 
@@ -163,20 +181,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === Auth State & Profile Management ===
     onAuthStateChanged(auth, async (user) => {
-        const signinBtn = document.getElementById('btnSignin');
-        const userProfile = document.querySelector('.user-profile');
-        const userAvatarEl = document.getElementById('userAvatar');
-        const userNameEl = document.getElementById('dropdownUserName');
-        const userEmailEl = document.getElementById('dropdownUserEmail');
+        const signinBtns = document.querySelectorAll('#btnSignin, .btn-signin');
+        const loginLinks = document.querySelectorAll('#linkLogin, .btn-login');
+        const userProfiles = document.querySelectorAll('.user-profile');
+        const userAvatars = document.querySelectorAll('.user-avatar');
+        const userNames = document.querySelectorAll('#dropdownUserName, .user-name');
+        const userEmails = document.querySelectorAll('#dropdownUserEmail, .user-email');
         const adminElements = document.querySelectorAll('.admin-only');
 
         if (user) {
             console.log("👤 User Authenticated:", user.email);
 
             // UI Update
-            if (signinBtn) signinBtn.style.display = 'none';
-            if (linkLogin) linkLogin.style.display = 'none';
-            if (userProfile) userProfile.classList.add('show');
+            signinBtns.forEach(btn => btn.style.display = 'none');
+            loginLinks.forEach(link => link.style.display = 'none');
+            userProfiles.forEach(p => p.classList.add('show'));
 
             const initials = (user.displayName || user.email || 'U')
                 .split(' ')
@@ -185,9 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 .toUpperCase()
                 .slice(0, 2);
 
-            if (userAvatarEl) userAvatarEl.textContent = initials;
-            if (userNameEl) userNameEl.textContent = user.displayName || 'Eduyogi Student';
-            if (userEmailEl) userEmailEl.textContent = user.email;
+            userAvatars.forEach(av => av.textContent = initials);
+            userNames.forEach(name => name.textContent = user.displayName || 'Eduyogi Student');
+            userEmails.forEach(email => email.textContent = user.email);
 
             // Firestore Profile Management
             try {
@@ -196,10 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let userData;
                 if (!userSnap.exists()) {
-                    // Create profile if missing
-                    // Auto-assign admin role for the provided admin email
                     const isAdmin = user.email === 'eduyogiiiii@gmail.com';
-
                     userData = {
                         name: user.displayName || 'Eduyogi Student',
                         email: user.email,
@@ -207,27 +223,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         createdAt: new Date().toISOString()
                     };
                     await setDoc(userDocRef, userData);
-                    console.log(`🆕 New ${userData.role.toUpperCase()} Profile Created in Firestore`);
                 } else {
                     userData = userSnap.data();
                 }
 
-                console.log("🛡️ User Role:", userData.role);
-
                 // Admin UI Gating
-                const btnAdminDashboard = document.getElementById('btnAdminDashboard');
-                if (btnAdminDashboard) {
-                    btnAdminDashboard.style.display = userData.role === 'admin' ? '' : 'none';
-                    btnAdminDashboard.onclick = () => window.location.href = 'admin.html';
-                }
-
                 adminElements.forEach(el => {
-                    if (el.id !== 'btnAdminDashboard') {
-                        el.style.display = userData.role === 'admin' ? '' : 'none';
+                    el.style.display = userData.role === 'admin' ? '' : 'none';
+                    if (el.id === 'btnAdminDashboard' || el.classList.contains('btn-admin')) {
+                        el.onclick = () => window.location.href = 'admin.html';
                     }
                 });
 
-                // Dispatch global event for other modules
                 document.dispatchEvent(new CustomEvent('eduyogi-auth', {
                     detail: { user, role: userData.role }
                 }));
@@ -237,9 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             console.log("🚪 User Signed Out");
-            if (signinBtn) signinBtn.style.display = '';
-            if (linkLogin) linkLogin.style.display = '';
-            if (userProfile) userProfile.classList.remove('show');
+            signinBtns.forEach(btn => btn.style.display = '');
+            loginLinks.forEach(link => link.style.display = '');
+            userProfiles.forEach(p => p.classList.remove('show'));
             adminElements.forEach(el => el.style.display = 'none');
 
             document.dispatchEvent(new CustomEvent('eduyogi-auth', {
