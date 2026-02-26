@@ -19,7 +19,9 @@ const allowedOrigins = [
   'http://127.0.0.1:5000',
   'http://localhost:3000',
   'http://localhost:8080',
-  'https://shrigovindas.github.io'
+  'https://shrigovindas.github.io',
+  'https://eduyogi-student-hub.vercel.app',
+  'https://eduyogi.in'
 ];
 
 app.use(cors({
@@ -87,7 +89,11 @@ app.post('/api/chat', async (req, res) => {
 
 app.get('/api/health', (req, res) => res.json({ status: "ok" }));
 
-app.listen(PORT, () => {
-  console.log(`🚀 Eduyogi Server running on Port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Eduyogi Server running on Port ${PORT}`);
+  });
+}
+
+module.exports = app;
 

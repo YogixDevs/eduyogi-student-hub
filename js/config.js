@@ -4,9 +4,9 @@ const CONFIG = {
     API_BASE_URL: (
         window.location.hostname === 'localhost' ||
         window.location.hostname === '127.0.0.1' ||
-        window.location.hostname.startsWith('192.168.') || // Local network
-        window.location.hostname.startsWith('10.') // Private network
-    ) ? 'http://localhost:3000' : 'https://eduyogi-backend.onrender.com',
+        window.location.hostname.startsWith('192.168.') ||
+        window.location.hostname.startsWith('10.')
+    ) ? 'http://localhost:3000' : window.location.origin,
 
     VERSION: '1.2.0',
     ENV: window.location.hostname === 'localhost' ? 'development' : 'production'
