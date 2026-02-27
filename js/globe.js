@@ -16,7 +16,7 @@ if (container) {
         0.1,
         1000
     );
-    camera.position.z = 4;
+    camera.position.z = 5;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -25,7 +25,7 @@ if (container) {
 
     // ── Sphere ─────────────────────────────────────────────
     // High-detail icosahedron for the dense wireframe look
-    const geometry = new THREE.IcosahedronGeometry(1.6, 4);
+    const geometry = new THREE.IcosahedronGeometry(1.5, 4);
     const material = new THREE.MeshBasicMaterial({
         color: new THREE.Color('#c5a059'),   // golden-brown
         wireframe: true,
